@@ -1,0 +1,82 @@
+// @import '~@angular/material/theming';
+@use '@angular/material' as mat;
+@include mat.core();
+//primary
+$quick-silver-palette:(
+    50:#fffcfb,
+    100:#faf7f6,
+    200:#f5f3f1,
+    300:#f0eeec,
+    400:#d2cfce,
+    500:#b5b2b1,
+    600:#8a8886,
+    700:#757371,
+    800:#555351,
+    900:#32302f,
+    contrast:(
+        50:#e6e0e1,
+        100:#beb2b6,
+        200:#beb2b6,
+        300:#6a5159,
+        400:#50313c,
+        500:#351220,
+        600:#2c0d1a,
+        700:#210010,
+        800:#1a0007,
+        900:#170009
+    )
+);
+$warning-red:#B00020;
+$mytheme-primary: mat-palette();
+
+$my-primary: mat.define-palette($quick-silver-palette,900);
+$my-accent: mat.define-palette($quick-silver-palette,50);
+
+
+$my-primary-theme: mat.define-light-theme((
+    color: (
+        primary: $my-primary,
+        accent: $my-accent,
+        warm:$warning-red,
+        ),
+        density: 0,
+        ));
+//secondary
+$light-blue-palette:(
+            50:#e2f5fa,
+            100:#b6e7f2,
+            200:#8bd8e8,
+            300:#65c8dd,
+            400:#53bcd4,
+            500:#4eb1ca,
+            600:#48a1b8,
+            700:#418d9e,
+            800:#3b7986,
+            900:#30565b,
+            contrast:(
+                50:#e6e0e1,
+                100:#beb2b6,
+                200:#beb2b6,
+                300:#6a5159,
+                400:#50313c,
+                500:#351220,
+                600:#2c0d1a,
+                700:#210010,
+                800:#1a0007,
+                900:#170009
+            )
+        );
+$my-secondary: mat.define-palette($light-blue-palette,700);
+$my-secondary-theme: mat.define-light-theme((
+    color: (
+      primary: $my-secondary,
+      accent: $my-accent,
+      warm:$warning-red,
+    ),
+    density: 0,
+   ));
+//apply the styles
+@include mat.core-theme($my-primary-theme);
+@include mat.all-component-themes($my-primary-theme);
+@include mat.button-color($my-secondary-theme);
+@include mat.icon-color($my-secondary-theme)
