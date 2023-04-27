@@ -20,5 +20,6 @@
   <router-outlet></router-outlet> 
 </div>
 <mat-menu #userMenu="matMenu">
+  <button mat-menu-item (click)="configureShipping()" >Account details</button>
   <button mat-menu-item (click)="logout()" >Logout</button>
 </mat-menu>

@@ -16,6 +16,9 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { MatMenuModule } from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
+import { PrivateModule } from './private/private.module';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent
@@ -33,10 +36,13 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     PublicModule,
     MatMenuModule,
+    HttpClientModule,
+    PrivateModule,
+    MatCardModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth())
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
