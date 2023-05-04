@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <div class="secondary-color">Perfumes</div>
+  <div class="secondary-color"><button (click)="returnToHome()">Scents</button></div>
   <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
     <button mat-button color="accent"[matMenuTriggerFor]="userMenu">
       <mat-icon>account_circle  </mat-icon>
@@ -23,3 +23,5 @@
   <button mat-menu-item (click)="configureShipping()" >Account details</button>
   <button mat-menu-item (click)="logout()" >Logout</button>
 </mat-menu>
+
+<app-footer></app-footer>

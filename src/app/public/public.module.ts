@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import { ProductComponent } from './components/product/product.component';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SignUpComponent,
     LoginComponent,
     LandingComponent,
-    HomeComponent
+    HomeComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ]
 })
 export class PublicModule { }

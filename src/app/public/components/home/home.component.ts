@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +10,16 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class HomeComponent implements OnInit
 {
-  user$=this.authService.currentUser$;
-constructor(private authService:AuthService){
 
+  user$=this.authService.currentUser$;
+
+  products:Product[] =[];
+  constructor(private authService:AuthService,
+  private productService:ProductService){
 }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
+   this.productService.getProductList().subscribe((product:Product[])=>
+   this.products=product);
   }
 }

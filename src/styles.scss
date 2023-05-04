@@ -1,5 +1,9 @@
 @use 'node_modules/@ngneat/hot-toast/src/styles/styles.scss';
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwindcss/aspect-ratio;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

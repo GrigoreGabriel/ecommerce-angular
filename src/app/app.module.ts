@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { PrivateModule } from './private/private.module';
 import {MatCardModule} from '@angular/material/card';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -39,6 +40,7 @@ import {MatCardModule} from '@angular/material/card';
     HttpClientModule,
     PrivateModule,
     MatCardModule,
+    SharedModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth())
   ],

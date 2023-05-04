@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { pipe, shareReplay, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { UserModel } from 'src/app/private/models/user.model';
 export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password')?.value;
@@ -21,7 +25,8 @@ export function passwordsMatchValidator(): ValidatorFn {
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
+  
+  userUID:string ='';
   signUpForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -33,12 +38,14 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toast: HotToastService,
-    private router:Router) {
+    private router:Router,
+    private userService:UserService,
+    private auth: Auth) {
 
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
+
   get name() {
     return this.signUpForm.get('name');
   }
@@ -62,8 +69,14 @@ export class SignUpComponent implements OnInit {
         loading:'Signing in',
         error:({message})=>`${message}`
       })
-    ).subscribe(()=>{
+    )
+    .subscribe(()=>{
+      var user={
+        name:name,
+        email:email
+      }
       this.router.navigate(['/home'])
+      this.userService.createUser(user).subscribe();
     })
-  }
+}
 }

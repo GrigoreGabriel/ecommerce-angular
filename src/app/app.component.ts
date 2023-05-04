@@ -22,4 +22,7 @@ export class AppComponent {
   configureShipping(){
     this.router.navigate(['address']);
   }
+  returnToHome(){
+    this.router.navigate(['home'])
+  }
 }
