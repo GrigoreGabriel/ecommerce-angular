@@ -6,20 +6,19 @@ import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit
-{
+export class HomeComponent implements OnInit {
+  user$ = this.authService.currentUser$;
 
-  user$=this.authService.currentUser$;
-
-  products:Product[] =[];
-  constructor(private authService:AuthService,
-  private productService:ProductService){
-}
+  products: Product[] = [];
+  constructor(
+    private authService: AuthService,
+    private productService: ProductService
+  ) {}
   ngOnInit(): void {
-    
-   this.productService.getProductList().subscribe((product:Product[])=>
-   this.products=product);
+    this.productService
+      .getProductList()
+      .subscribe((product: Product[]) => (this.products = product));
   }
 }

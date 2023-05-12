@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
       error:'Bad credentials'
     })).subscribe(()=>{
       this.router.navigate(['/home']);
+      
     });
 
   }

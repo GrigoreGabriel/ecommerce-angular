@@ -19,7 +19,6 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
-    debugger;
     this.productService
       .getProduct(this.productId)
       .subscribe((value) => (this.product = value));
