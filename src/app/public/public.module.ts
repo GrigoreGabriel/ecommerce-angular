@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import { ProductComponent } from './components/product/product.component';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
 
 @NgModule({
@@ -25,8 +26,10 @@ import { ProductComponent } from './components/product/product.component';
     LoginComponent,
     LandingComponent,
     HomeComponent,
-    ProductComponent
+    ProductComponent,
+    CartSummaryComponent
   ],
+  exports:[CartSummaryComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,

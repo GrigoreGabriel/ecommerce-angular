@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './core/auth/auth.service';
+import { CartSummaryService } from './shared/services/cart-summary.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,11 @@ import { AuthService } from './core/auth/auth.service';
 })
 export class AppComponent {
   title = 'eCommerceClient';
+  isCartOpen:boolean=false;
+  itemsInCart:number = 0;
   constructor(
     public authService:AuthService,
+    private cartService:CartSummaryService,
     private router: Router){
 
   }
@@ -24,5 +28,8 @@ export class AppComponent {
   }
   returnToHome(){
     this.router.navigate(['home'])
+  }
+  changeOpenStatus(status:boolean){
+    this.isCartOpen=status;
   }
 }
