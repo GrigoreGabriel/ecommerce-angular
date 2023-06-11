@@ -7,6 +7,8 @@ import { HomeComponent } from './public/components/home/home.component';
 import {canActivate, redirectUnauthorizedTo,redirectLoggedInTo} from '@angular/fire/auth-guard';
 import { AddressComponent } from './private/components/address/address.component';
 import { OrderListComponent } from './private/components/order-list/order-list.component';
+import { FavoritesComponent } from './private/components/favorites/favorites.component';
+import { UserTableComponent } from './private/components/user-table/user-table.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
@@ -38,6 +40,16 @@ const routes: Routes = [
     {
       path:'order-list',
       component:OrderListComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'favorites',
+      component:FavoritesComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'user-table',
+      component:UserTableComponent,
       ...canActivate(redirectToLogin)  
     },
 ];

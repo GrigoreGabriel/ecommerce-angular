@@ -20,6 +20,7 @@ export class AppComponent {
   }
   logout(){
     this.authService.logout().subscribe(()=>{
+      localStorage.removeItem('userId');
       this.router.navigate(['']);
     })
   }
@@ -31,5 +32,12 @@ export class AppComponent {
   }
   changeOpenStatus(status:boolean){
     this.isCartOpen=status;
+  }
+  redirectToFavoritesPage(){
+    this.router.navigate(['favorites'])
+  }
+  redirectToUserTable(){
+    this.router.navigate(['user-table'])
+
   }
 }

@@ -10,7 +10,15 @@
       </span>
     </a>
   </li>
+  <div class="secondary-color"><button (click)="redirectToFavoritesPage()">Favorites</button></div>
   <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
+
+    <button mat-button color="accent"[matMenuTriggerFor]="adminMenu">
+      
+      {{'Admin'}}
+      <mat-icon>expand_more</mat-icon>
+    </button>
+
     <button mat-button color="accent"[matMenuTriggerFor]="userMenu">
       <mat-icon>account_circle  </mat-icon>
       {{user.displayName}}
@@ -32,6 +40,11 @@
 <mat-menu #userMenu="matMenu">
   <button mat-menu-item (click)="configureShipping()" >Account details</button>
   <button mat-menu-item (click)="logout()" >Logout</button>
+</mat-menu>
+
+<mat-menu #adminMenu="matMenu">
+  <button mat-menu-item (click)="redirectToUserTable()" >Users</button>
+  <button mat-menu-item (click)="redirectToUserTable()" >Products</button>
 </mat-menu>
 <app-cart-summary *ngIf="isCartOpen" (cartOpen)="changeOpenStatus(false)"></app-cart-summary>
 

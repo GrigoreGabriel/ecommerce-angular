@@ -9,13 +9,18 @@ import { MatCardModule } from '@angular/material/card';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { UserTableComponent } from './components/user-table/user-table.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     PrivateComponent,
     AddressComponent,
     UserInfoComponent,
-    OrderListComponent
+    OrderListComponent,
+    FavoritesComponent,
+    UserTableComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +28,9 @@ import { OrderListComponent } from './components/order-list/order-list.component
     SharedModule,
     MatCardModule,
     MatSidenavModule,
+    MatSortModule,
     MatTableModule
+    
   ]
 })
 export class PrivateModule { }
