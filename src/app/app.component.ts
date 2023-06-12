@@ -38,6 +38,8 @@ export class AppComponent {
   }
   redirectToUserTable(){
     this.router.navigate(['user-table'])
-
+  }
+  redirectToProductsTable(){
+    this.router.navigate(['product-list'])
   }
 }

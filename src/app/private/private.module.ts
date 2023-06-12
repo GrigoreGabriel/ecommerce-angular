@@ -12,6 +12,9 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { MatSortModule } from '@angular/material/sort';
+import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { MatSortModule } from '@angular/material/sort';
     UserInfoComponent,
     OrderListComponent,
     FavoritesComponent,
-    UserTableComponent
+    UserTableComponent,
+    ProductsTableComponent
   ],
   imports: [
     CommonModule,
@@ -29,8 +33,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatCardModule,
     MatSidenavModule,
     MatSortModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatInputModule
   ]
 })
 export class PrivateModule { }

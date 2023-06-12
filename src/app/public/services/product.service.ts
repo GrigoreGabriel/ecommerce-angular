@@ -16,4 +16,5 @@ export class ProductService {
   getProduct(id:number) :Observable<any>{
     return this.http.get(`${this.apiUrl}/product/${id}`)
   }
+  
 }
