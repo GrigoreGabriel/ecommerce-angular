@@ -10,6 +10,7 @@ import { OrderListComponent } from './private/components/order-list/order-list.c
 import { FavoritesComponent } from './private/components/favorites/favorites.component';
 import { UserTableComponent } from './private/components/user-table/user-table.component';
 import { ProductsTableComponent } from './private/components/products-table/products-table.component';
+import { AddProductComponent } from './private/components/add-product/add-product.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
@@ -56,6 +57,11 @@ const routes: Routes = [
     {
       path:'product-list',
       component:ProductsTableComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'add-product',
+      component:AddProductComponent,
       ...canActivate(redirectToLogin)  
     },
 ];

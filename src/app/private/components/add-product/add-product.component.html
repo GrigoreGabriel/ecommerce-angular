@@ -1,0 +1,40 @@
+<h3 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-slate-700 md:text-4xl lg:text-4xl dark:text-white text-center" >Add products </h3>
+<div class="form-container mat-elevation-z5">
+<form [formGroup]="addProductForm" (ngSubmit)="submitForm()">
+<mat-form-field>
+    <mat-label>Product name </mat-label>
+    <input formControlName="name" matInput>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Product brand </mat-label>
+    <input formControlName="brand" matInput>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea formControlName="description" matInput></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option *ngFor="let gender of genders" value="{{gender.name}}">{{gender.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Product Image URL </mat-label>
+    <input formControlName="image_url" matInput>
+  </mat-form-field>
+  <button class="bg-white hover:bg-gray-100 text-slate-700 font-semibold py-2 px-4 border border-gray-400 rounded shadow" >
+      Add product
+    </button>
+    <svg *ngIf="success" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+      </svg>
+</form>
+</div>

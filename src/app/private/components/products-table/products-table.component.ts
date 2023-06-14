@@ -2,8 +2,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/public/models/product.model';
-
+import { ProductDetails, ProductHeader, ProductService } from 'src/app/public/services/product.service';
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -19,100 +20,62 @@ import { Product } from 'src/app/public/models/product.model';
 export class ProductsTableComponent {
   @ViewChild('outerSort', { static: true }) sort!: MatSort;
   @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
-  @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Address>>;
+  @ViewChildren('innerTables') innerTables!: QueryList<MatTable<ProductDetails>>;
 
-  dataSource!: MatTableDataSource<UserModel>;
-  usersData: UserModel[] = [];
-  columnsToDisplay = ['name', 'email', 'phone'];
-  innerDisplayedColumns = ['street', 'zipCode', 'city'];
-  expandedElement!: UserModel | null;
-
+  dataSource!: MatTableDataSource<ProductHeader>;
+  productsHeader: ProductHeader[] = [];
+  columnsToDisplay = ['id', 'brand', 'gender'];
+  innerDisplayedColumns = ['id', 'qtyInStock', 'size','price'];
+  expandedElement!: ProductHeader | null;
+  actualProducts :ProductHeader[] = [];
   constructor(
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef, 
+    private _productService: ProductService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    USERS.forEach(user => {
-      if (user.addresses && Array.isArray(user.addresses) && user.addresses.length) {
-        this.usersData = [...this.usersData, {...user, addresses: new MatTableDataSource(user.addresses)}];
+   this._productService.getProductDetails().subscribe(products => {
+    this.actualProducts=products;
+    this.productsHeader = products.map(product => {
+      if (product.detailsResponse && Array.isArray(product.detailsResponse) && product.detailsResponse.length) {
+        return { ...product, detailsResponse: new MatTableDataSource(product.detailsResponse) };
       } else {
-        this.usersData = [...this.usersData, user];
+        return product;
       }
     });
-    this.dataSource = new MatTableDataSource(this.usersData);
+    this.dataSource = new MatTableDataSource(this.actualProducts);
     this.dataSource.sort = this.sort;
+  });
+
+    
   }
 
-  toggleRow(element: UserModel) {
-    element.addresses && (element.addresses as MatTableDataSource<Address>).data.length ? (this.expandedElement = this.expandedElement === element ? null : element) : null;
+  toggleRow(element: ProductHeader) {
+    element.detailsResponse && (element.detailsResponse as MatTableDataSource<ProductDetails>).data?.length ? (this.expandedElement  = this.expandedElement === element ? null : element) : null;
     this.cd.detectChanges();
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<Address>).sort = this.innerSort.toArray()[index]);
+    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<ProductDetails>).sort = this.innerSort.toArray()[index]);
+    
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<Address>).filter = filterValue.trim().toLowerCase());
+    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<ProductDetails>).filter = filterValue.trim().toLowerCase());
+  }
+  redirectToAddProduct(){
+    this.router.navigate(['add-product']);
   }
 }
-
-export interface UserModel {
-  name: string;
-  email: string;
-  phone: string;
-  addresses?: Address[] | MatTableDataSource<Address>;
-}
-
-export interface Address {
-  street: string;
-  zipCode: string;
-  city: string;
-}
-
-export interface UserDataSource {
-  name: string;
-  email: string;
-  phone: string;
-  addresses?: MatTableDataSource<Address>;
-}
-
-const USERS: UserModel[] = [
-  {
-    name: "Mason",
-    email: "mason@test.com",
-    phone: "9864785214",
-    addresses: [
-      {
-        street: "Street 1",
-        zipCode: "78542",
-        city: "Kansas"
-      },
-      {
-        street: "Street 2",
-        zipCode: "78554",
-        city: "Texas"
-      }
-    ]
-  },
-  {
-    name: "Eugene",
-    email: "eugene@test.com",
-    phone: "8786541234",
-  },
-  {
-    name: "Jason",
-    email: "jason@test.com",
-    phone: "7856452187",
-    addresses: [
-      {
-        street: "Street 5",
-        zipCode: "23547",
-        city: "Utah"
-      },
-      {
-        street: "Street 5",
-        zipCode: "23547",
-        city: "Ohio"
-      }
-    ]
-  }
-];
+// export interface ProductHeader{
+//   id:number;
+//   name:string;
+//   brand:string;
+//   gender:string;
+//   detailsResponse?: ProductDetails[] | MatTableDataSource<ProductDetails>;
+// }
+// export interface ProductDetails{
+//   id:number;
+//   qtyInStock:number;
+//   size:string;
+//   price:number;
+// }
