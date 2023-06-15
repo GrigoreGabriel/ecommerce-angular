@@ -24,7 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import {MatSelectModule} from '@angular/material/select'
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { StockComponent } from './components/stock/stock.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -34,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FavoritesComponent,
     UserTableComponent,
     ProductsTableComponent,
-    AddProductComponent
+    AddProductComponent,
+    StockComponent
   ],
   imports: [
     CommonModule,

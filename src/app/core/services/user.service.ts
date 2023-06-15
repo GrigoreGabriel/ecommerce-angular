@@ -25,10 +25,14 @@ export class UserService {
   addFavoriteProduct(userId:string,productId:number){
     return this.http.post<any>(this.apiUrl+`/addFavorite?userId=${userId}&productId=${productId}`,null);
   }
+  removeFavoriteProduct(userId:string,productId:number){
+    return this.http.delete<any>(this.apiUrl+`/removeFavorite?userId=${userId}&productId=${productId}`);
+  }
   updateUserDetails(userId:string,productId:number){
     return this.http.post<any>(this.apiUrl+`/update-user-details?userId=${userId}&productId=${productId}`,null);
   }
   getUserList(){
     return this.http.get<UserListInfo[]>(this.apiUrl+`/userList`);
   }
+
 }

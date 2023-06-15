@@ -42,4 +42,7 @@ export class AppComponent {
   redirectToProductsTable(){
     this.router.navigate(['product-list'])
   }
+  redirectToStocktable(){
+    this.router.navigate(['stock'])
+  }
 }

@@ -16,14 +16,17 @@ import { Product } from 'src/app/public/models/product.model';
 })
 export class FavoritesComponent implements OnInit {
   products: Product[] = [];
-
+  userId: any = '';
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
+    this.userId = localStorage.getItem('userId');
     this.userService
-      .getFavoriteProducts(userId!)
+      .getFavoriteProducts(this.userId!)
       .subscribe((product: Product[]) => (this.products = product));
   }
   constructor(private userService: UserService) {}
   addToCart(productId:number){}
+  removeFromFavorites(productId:number){
+    this.userService.removeFavoriteProduct(this.userId,productId).subscribe()
+    }
+  }
 
-}
