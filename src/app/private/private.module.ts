@@ -26,6 +26,8 @@ import {MatSelectModule} from '@angular/material/select'
 import { ReactiveFormsModule } from '@angular/forms';
 import { StockComponent } from './components/stock/stock.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AddStockComponent } from './components/add-stock/add-stock.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -36,7 +38,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     UserTableComponent,
     ProductsTableComponent,
     AddProductComponent,
-    StockComponent
+    StockComponent,
+    AddStockComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +57,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTreeModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatAutocompleteModule,
     PortalModule,
     ScrollingModule,
     ReactiveFormsModule

@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/public/services/product.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import * as _ from 'lodash'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
@@ -16,7 +17,8 @@ export class StockComponent implements OnInit{
   apiResponse:any = [];
   @ViewChild('paginator') paginator! : MatPaginator;
   @ViewChild(MatSort) matSort! : MatSort;
-constructor(private productService: ProductService){}
+constructor(private productService: ProductService,
+  private router: Router){}
 
   ngOnInit(): void {
     this.productService.getItemsInStock().subscribe((response)=>{
@@ -36,5 +38,8 @@ constructor(private productService: ProductService){}
       return item.size.toLowerCase()== $event.value.toLowerCase();
     })
     this.dataSource= new MatTableDataSource(filteredData)
+  }
+  redirectToAddStock(){
+    this.router.navigate(['add-stock']);
   }
 }

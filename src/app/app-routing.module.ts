@@ -12,6 +12,7 @@ import { UserTableComponent } from './private/components/user-table/user-table.c
 import { ProductsTableComponent } from './private/components/products-table/products-table.component';
 import { AddProductComponent } from './private/components/add-product/add-product.component';
 import { StockComponent } from './private/components/stock/stock.component';
+import { AddStockComponent } from './private/components/add-stock/add-stock.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
@@ -68,6 +69,11 @@ const routes: Routes = [
     {
       path:'stock',
       component:StockComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'add-stock',
+      component:AddStockComponent,
       ...canActivate(redirectToLogin)  
     },
 ];

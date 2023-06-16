@@ -34,6 +34,11 @@ export interface ProductItem{
   price:number;
 }
 
+export interface ProductShort{
+  id:number;
+  name:string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -67,5 +72,8 @@ export class ProductService {
   }
   getProductPrice(productId:number,type:string,size:string) :Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/productPrice?productId=${productId}&type=${type}&size=${size}`)
+  }
+  getProductShortDetails() :Observable<ProductShort[]>{
+    return this.http.get<ProductShort[]>(`${this.apiUrl}/productShortDetails`)
   }
 }
