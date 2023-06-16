@@ -1,1 +1,73 @@
-<p>stock works!</p>
+<div>
+<div class="search-container">
+  <div class="left">
+    <mat-form-field appearance="fill">
+      <mat-label>Search </mat-label>
+        <input matInput autocomplete="off" (keyup)="filterData($event)">
+    </mat-form-field>
+  </div>
+  <div class="right-container">
+    <div class="right">
+    <mat-form-field appearance="fill">
+        <mat-label>Size </mat-label>
+        <mat-select (selectionChange)="onChange($event)">
+            <mat-option value="30ml">30ml</mat-option>
+            <mat-option value="50ml">50ml</mat-option>
+            <mat-option value="75ml">75ml</mat-option>
+            <mat-option value="100ml">100ml</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
+    <div class="right">
+    <mat-form-field appearance="fill">
+      <mat-label>Price </mat-label>
+      <mat-select (selectionChange)="onChange($event)">
+          <mat-option value="30">30</mat-option>
+          <mat-option value="50">50</mat-option>
+          <mat-option value="75">75</mat-option>
+          <mat-option value="100">100</mat-option>
+      </mat-select>
+  </mat-form-field>
+    </div>
+  </div>
+</div>
+<table mat-table matSort [dataSource]="dataSource" matSortDisableClear class="mat-elevation-z8">
+
+  <ng-container matColumnDef="brand">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Brand</th>
+    <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="qtyInStock">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Quantity in stock</th>
+    <td mat-cell *matCellDef="let element">{{ element.qtyInStock }}</td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+  </ng-container>
+  <ng-container matColumnDef="size">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Size</th>
+    <td mat-cell *matCellDef="let element">{{ element.size }}</td>
+  </ng-container>
+
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator #paginator
+[pageSize]="5"
+[pageSizeOptions]="[25, 50, 100, 200]"
+aria-label="Select page">
+</mat-paginator>
+</div>
+<div>
+  <span class="text-base lg "> Total stock value: </span>
+  <br> 
+  <span class="text-green-700 font-bold text-xl">{{ stockValue | currency}} </span> 
+
+</div>

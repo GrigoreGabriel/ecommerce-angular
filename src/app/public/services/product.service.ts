@@ -27,6 +27,12 @@ export interface ProductCategory{
   id:number;
   name:string;
 }
+export interface ProductItem{
+  productItemId:number,
+  size:string;
+  type:string;
+  price:number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +55,17 @@ export class ProductService {
   }
   addProduct(product:any) {
     return this.http.post<any>(`${this.apiUrl}/addProduct`,product ,{observe:'response'})
+  }
+  getItemsInStock() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/itemsInStock`)
+  }
+  getStockValue() :Observable<any>{
+    return this.http.get<number>(`${this.apiUrl}/stockValue`)
+  }
+  getProductConfigurations(productId:number) :Observable<ProductItem[]>{
+    return this.http.get<ProductItem[]>(`${this.apiUrl}/productConfigurations?productId=${productId}`)
+  }
+  getProductPrice(productId:number,type:string,size:string) :Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/productPrice?productId=${productId}&type=${type}&size=${size}`)
   }
 }

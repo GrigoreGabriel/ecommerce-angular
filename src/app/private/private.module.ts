@@ -25,6 +25,7 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import {MatSelectModule} from '@angular/material/select'
 import { ReactiveFormsModule } from '@angular/forms';
 import { StockComponent } from './components/stock/stock.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -52,6 +53,7 @@ import { StockComponent } from './components/stock/stock.component';
     MatTooltipModule,
     MatTreeModule,
     MatSelectModule,
+    MatPaginatorModule,
     PortalModule,
     ScrollingModule,
     ReactiveFormsModule

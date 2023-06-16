@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../../services/product.service';
+import { ProductItem, ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
 
 @Component({
@@ -8,19 +8,49 @@ import { Product } from '../../models/product.model';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnChanges {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService
   ) {}
-
   productId: any;
-  product!: Product;
-
+  product?: Product;
+  selectedOption: number = 0;
+  productConfigurations: ProductItem[] = [];
+  productPrice: number | undefined;
+  
   ngOnInit(): void {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
+    
     this.productService
-      .getProduct(this.productId)
-      .subscribe((value) => (this.product = value));
+    .getProduct(this.productId)
+    .subscribe((value) => (this.product = value));
+    
+    this.productService.getProductConfigurations(this.productId).subscribe((response)=>{
+      
+      this.productConfigurations=response
+      this.productPrice=this.productConfigurations[0].price
+    });
+    }
+    
+  
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes[this.selectedOption] && !changes[this.selectedOption].firstChange){
+      
+      this.getProductPrice(this.productId,'','') 
+    }
+    
   }
-}
+  getProductPrice(productId:number,type:string,size:string ){
+    this.productService.getProductPrice(productId,type,size).subscribe(price=>
+      this.productPrice=price);
+    }
+    onOptionChange(){
+      const product=this.productConfigurations.find(x=>x.productItemId==this.selectedOption);
+      this.productPrice=product?.price;
+      
+    }
+  }
+  
+

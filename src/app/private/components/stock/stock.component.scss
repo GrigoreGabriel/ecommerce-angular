@@ -1,0 +1,15 @@
+.search-container{
+    display: flex;
+    justify-content: space-between;
+}
+.left {
+    order: 1;
+  }
+.right-container{
+    display: flex;
+    gap: 10px;
+    order: 2;
+}
+.right {
+    flex: 1;
+  }
