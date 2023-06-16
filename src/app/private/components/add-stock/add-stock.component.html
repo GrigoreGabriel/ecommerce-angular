@@ -1,13 +1,18 @@
 <h3 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-slate-700 md:text-4xl lg:text-4xl dark:text-white text-center" >Add products </h3>
 <div class="form-container mat-elevation-z5">
-<form [formGroup]="addProductForm" (ngSubmit)="submitForm()">
-    <mat-form-field>
-        <mat-label>Select Product</mat-label>
-        <mat-select formControlName="selectProduct">
-          <mat-option *ngFor="let option of productOptions" value="{{option.id}}">{{option.name}}</mat-option>
-
-        </mat-select>
-      </mat-form-field>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <mat-form-field>
+    <mat-label>
+        Product
+    </mat-label>
+    <input matInput formControlName="selectedProduct" type="text" 
+    [matAutocomplete]="auto" />
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let product of filteredOptions" [value]="product.name">
+            {{product.name}}
+        </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
   <!-- <mat-form-field>
     <mat-label>Product Name </mat-label>
     <input formControlName="name" matInput>
