@@ -37,6 +37,7 @@ export interface ProductItem{
 export interface ProductShort{
   id:number;
   name:string;
+  variations:number;
 }
 
 @Injectable({
@@ -67,6 +68,9 @@ export class ProductService {
   getStockValue() :Observable<any>{
     return this.http.get<number>(`${this.apiUrl}/stockValue`)
   }
+  getProductTypes() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/productTypes`)
+  }
   getProductConfigurations(productId:number) :Observable<ProductItem[]>{
     return this.http.get<ProductItem[]>(`${this.apiUrl}/productConfigurations?productId=${productId}`)
   }
@@ -75,5 +79,8 @@ export class ProductService {
   }
   getProductShortDetails() :Observable<ProductShort[]>{
     return this.http.get<ProductShort[]>(`${this.apiUrl}/productShortDetails`)
+  }
+  addProductItem(productItem:any) {
+    return this.http.post<any>(`${this.apiUrl}/addProductItem`,productItem ,{observe:'response'})
   }
 }

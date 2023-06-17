@@ -19,7 +19,7 @@ const routes: Routes = [
     {
       path:'',
       pathMatch:'full',
-      component:LandingComponent  
+      component:HomeComponent  
     },
     {
       path:'login',

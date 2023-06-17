@@ -11,37 +11,53 @@ import * as _ from 'lodash'
 })
 export class AddStockComponent implements OnInit {
   productOptions:ProductShort[] = [];
-
-  filteredOptions :any;
+  productTypes: any[] = [];
+  filteredOptions: any;
   success:boolean = false;
-
- formGroup!:FormGroup ;
-
-constructor(private productService: ProductService,private fb:FormBuilder){}
+  sizeValue:string=''
+  formGroup!:FormGroup ;
+  property:any;
+constructor(private productService: ProductService, private fb:FormBuilder){}
 
   ngOnInit(): void {
 
     this.productService.getProductShortDetails().subscribe(products=>{
       this.productOptions=products;
       this.filteredOptions=products;
+    this.productService.getProductTypes().subscribe(types=>{
+      this.productTypes=types;
+    })
   });
     this.initForm();
 }
+
 initForm(){
   this.formGroup=this.fb.group({
-    'selectedProduct' : ['']
+    'selectedProduct' : [''],
+    'qtyInStock' : [''],
+    'price': [''],
+    'size': [''],
+    'typeName': [''],
+
   })
   this.formGroup?.get('selectedProduct')?.valueChanges.subscribe(response=>{
     this.filterData(response)
   });
 }
   submitForm() {
-    
+    this.productService.addProductItem(this.formGroup.value).subscribe();
   }
 
 filterData(enteredData:any){
   this.filteredOptions = this.productOptions.filter(item=>{
     return item.name.toLowerCase().indexOf(enteredData.toLowerCase()) > -1
-  })
-}
+    })
+  }
+  addMeasurementToValue() :void{
+    const lastCharacter = this.sizeValue.slice(-1);
+
+  if (!isNaN(parseInt(lastCharacter))) {
+    this.sizeValue += 'ml';
+  }
+  }
 }
