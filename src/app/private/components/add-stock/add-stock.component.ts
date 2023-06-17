@@ -16,7 +16,7 @@ export class AddStockComponent implements OnInit {
   success:boolean = false;
   sizeValue:string=''
   formGroup!:FormGroup ;
-  property:any;
+  selectedProductId:number=0
 constructor(private productService: ProductService, private fb:FormBuilder){}
 
   ngOnInit(): void {
@@ -33,19 +33,28 @@ constructor(private productService: ProductService, private fb:FormBuilder){}
 
 initForm(){
   this.formGroup=this.fb.group({
-    'selectedProduct' : [''],
+    'selectedProductId' : [''],
     'qtyInStock' : [''],
     'price': [''],
     'size': [''],
     'typeName': [''],
 
   })
-  this.formGroup?.get('selectedProduct')?.valueChanges.subscribe(response=>{
+  this.formGroup?.get('selectedProductId')?.valueChanges.subscribe(response=>{
     this.filterData(response)
   });
 }
   submitForm() {
-    this.productService.addProductItem(this.formGroup.value).subscribe();
+    this.formGroup.get('selectedProductId')?.setValue(this.selectedProductId);
+    this.productService.addProductItem(this.formGroup.value).subscribe((response)=>{
+      if (response.status == 200) {
+        this.success=true;
+        setTimeout(() => {
+          this.success=false;
+      }, 3000);
+      }
+    });
+    this.formGroup.reset();
   }
 
 filterData(enteredData:any){
@@ -60,4 +69,8 @@ filterData(enteredData:any){
     this.sizeValue += 'ml';
   }
   }
+
+  recordSelectedId(id:number){
+  this.selectedProductId=id;
+ }
 }

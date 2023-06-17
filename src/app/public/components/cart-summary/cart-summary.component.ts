@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { CartContents, CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-cart-summary',
@@ -9,13 +9,14 @@ import { Product } from '../../models/product.model';
 export class CartSummaryComponent implements OnInit{
   @Output()
   cartOpen = new EventEmitter<boolean>();
-  cartItems : Product[] =[]
-  
+  userId:any;
+  cartContents: CartContents[]= [];
+constructor(private cartService: CartService){}
   ngOnInit(): void {
-    const items = localStorage.getItem(JSON.parse('cart'));
-     this.cartItems = JSON.parse(items as string) as Product[] 
-     console.log(this.cartItems);
-     
+    this.userId = localStorage.getItem('userId');
+     this.cartService.getCartContents(this.userId).subscribe((response)=>{
+      this.cartContents=response;
+     })
   }
 
   closeModal(){

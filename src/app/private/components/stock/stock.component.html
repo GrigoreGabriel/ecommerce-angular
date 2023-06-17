@@ -47,7 +47,7 @@
   </ng-container>
   <ng-container matColumnDef="qtyInStock">
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Quantity in stock</th>
-    <td mat-cell *matCellDef="let element">{{ element.qtyInStock }}</td>
+    <td mat-cell [ngClass]="{'text-red-700 italic text-bold' :element.qtyInStock <50,'text-green-700 font-bold':element.qtyInStock>=50}" *matCellDef="let element">{{ element.qtyInStock }}</td>
   </ng-container>
   <ng-container matColumnDef="type">
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Essence type</th>
