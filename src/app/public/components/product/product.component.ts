@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit, OnChanges {
   selectedOption: number = 0;
   productConfigurations: ProductItem[] = [];
   productPrice: number | undefined;
-  
+  quantityValue: number = 1;
   ngOnInit(): void {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     
@@ -50,6 +50,15 @@ export class ProductComponent implements OnInit, OnChanges {
       const product=this.productConfigurations.find(x=>x.productItemId==this.selectedOption);
       this.productPrice=product?.price;
       
+    }
+    decrement() {
+      if(this.quantityValue>1){
+        this.quantityValue--;
+      }
+    }
+  
+    increment() {
+      this.quantityValue++;
     }
   }
   

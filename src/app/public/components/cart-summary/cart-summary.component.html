@@ -24,23 +24,23 @@
                   <div class="flow-root">
                     <ul role="list" class="-my-6 divide-y divide-gray-200">
                       <!-- one product -->
-                      <li class="flex py-6">
+                      <li class="flex py-6" *ngFor="let product of cartContents">
                         <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img src="https://media.douglas.ro/ro/media/45/6b/be/1663965996/720358.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                          <img src="{{product.productImageUrl}}" alt="image not available" class="h-full w-full object-cover object-center">
                         </div>
   
                         <div class="ml-4 flex flex-1 flex-col">
                           <div>
                             <div class="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href="#">Versace Eros</a>
+                                <a href="#">{{product.productName}}</a>
                               </h3>
-                              <p class="ml-4">$50.00</p>
+                              <p class="ml-4">{{product.totalItemValue | currency}}</p>
                             </div>
-                            <p class="mt-1 text-sm text-gray-500">Men's perfume</p>
+                            <p class="mt-1 text-sm text-gray-500">{{product.productItemType}}</p>
                           </div>
                           <div class="flex flex-1 items-end justify-between text-sm">
-                            <p class="text-gray-500">Qty 2</p>
+                            <p class="text-gray-500">Qty {{product.quantity}}</p>
   
                             <div class="flex">
                               <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
@@ -49,31 +49,7 @@
                         </div>
                       </li>
                       <!--  -->
-                      <li class="flex py-6">
-                        <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img src="https://static.thcdn.com/images/large/original//productimg/1600/1600/11866959-5904936818157353.jpg" alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch." class="h-full w-full object-cover object-center">
-                        </div>
-  
-                        <div class="ml-4 flex flex-1 flex-col">
-                          <div>
-                            <div class="flex justify-between text-base font-medium text-gray-900">
-                              <h3>
-                                <a href="#">Yyves Saint Laurent</a>
-                              </h3>
-                              <p class="ml-4">$80.00</p>
-                            </div>
-                            <p class="mt-1 text-sm text-gray-500">Women's perfume</p>
-                          </div>
-                          <div class="flex flex-1 items-end justify-between text-sm">
-                            <p class="text-gray-500">Qty 1</p>
-  
-                            <div class="flex">
-                              <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-  
+                    
                       <!-- More products... -->
                     </ul>
                   </div>
