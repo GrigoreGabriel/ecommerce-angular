@@ -13,7 +13,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('maverick.boss@yahoo.com', [Validators.required, Validators.email]),
-    password: new FormControl('1234567', Validators.required)
+    password: new FormControl('12345678', Validators.required)
   })
   constructor(
     private authService: AuthService,

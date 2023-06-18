@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit, OnChanges {
   productConfigurations: ProductItem[] = [];
   productPrice: number | undefined;
   quantityValue: number = 1;
+  pricebyQuantity : number | undefined;
   ngOnInit(): void {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     
@@ -29,7 +30,8 @@ export class ProductComponent implements OnInit, OnChanges {
     this.productService.getProductConfigurations(this.productId).subscribe((response)=>{
       
       this.productConfigurations=response
-      this.productPrice=this.productConfigurations[0].price
+      this.productPrice = this.productConfigurations[0].price,
+      this.pricebyQuantity = this.productPrice;
     });
     }
     
@@ -43,22 +45,26 @@ export class ProductComponent implements OnInit, OnChanges {
     
   }
   getProductPrice(productId:number,type:string,size:string ){
-    this.productService.getProductPrice(productId,type,size).subscribe(price=>
-      this.productPrice=price);
+    this.productService.getProductPrice(productId,type,size).subscribe(price=>{
+      this.productPrice=price;
+    });
     }
     onOptionChange(){
       const product=this.productConfigurations.find(x=>x.productItemId==this.selectedOption);
       this.productPrice=product?.price;
+      this.pricebyQuantity = product?.price;
       
     }
     decrement() {
       if(this.quantityValue>1){
         this.quantityValue--;
+        this.productPrice! -= this.pricebyQuantity!
       }
     }
   
     increment() {
       this.quantityValue++;
+      this.productPrice! += this.pricebyQuantity!;
     }
   }
   
