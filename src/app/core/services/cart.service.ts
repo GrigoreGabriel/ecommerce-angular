@@ -24,4 +24,7 @@ export class CartService {
       this.apiUrl + `/cartContents?userId=${userId}`
     );
   }
+  addProductToCart(data:any){
+    return this.http.post<any>(this.apiUrl+`/productToCart`,data); 
+  }
 }

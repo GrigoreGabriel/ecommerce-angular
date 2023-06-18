@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductItem, ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
+import { CartService } from 'src/app/core/services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +12,8 @@ import { Product } from '../../models/product.model';
 export class ProductComponent implements OnInit, OnChanges {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) {}
   productId: any;
   product?: Product;
@@ -20,13 +22,15 @@ export class ProductComponent implements OnInit, OnChanges {
   productPrice: number | undefined;
   quantityValue: number = 1;
   pricebyQuantity : number | undefined;
+  chosenProductItem : ProductItem | undefined;
+  userId: any;
   ngOnInit(): void {
+
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
-    
+    this.userId = localStorage.getItem('userId');
     this.productService
     .getProduct(this.productId)
     .subscribe((value) => (this.product = value));
-    
     this.productService.getProductConfigurations(this.productId).subscribe((response)=>{
       
       this.productConfigurations=response
@@ -50,9 +54,10 @@ export class ProductComponent implements OnInit, OnChanges {
     });
     }
     onOptionChange(){
-      const product=this.productConfigurations.find(x=>x.productItemId==this.selectedOption);
-      this.productPrice=product?.price;
-      this.pricebyQuantity = product?.price;
+      this.quantityValue=1;
+      this.chosenProductItem =this.productConfigurations.find(x=>x.productItemId==this.selectedOption);
+      this.productPrice=this.chosenProductItem?.price;
+      this.pricebyQuantity = this.chosenProductItem?.price;
       
     }
     decrement() {
@@ -65,6 +70,14 @@ export class ProductComponent implements OnInit, OnChanges {
     increment() {
       this.quantityValue++;
       this.productPrice! += this.pricebyQuantity!;
+    }
+    addProductToCart(){
+      const productData ={
+        userId: this.userId,
+        productItemId: this.chosenProductItem?.productItemId,
+        quantity: this.quantityValue
+      };
+      this.cartService.addProductToCart(productData).subscribe();
     }
   }
   
