@@ -35,7 +35,13 @@ constructor(private productService: ProductService,
   }
   onChange($event:any){
     let filteredData = _.filter(this.apiResponse,(item)=>{
-      return item.size.toLowerCase()== $event.value.toLowerCase();
+      if (item.size && item.size.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
+      }
+      if (item.type && item.type.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
+      }
+      return false;
     })
     this.dataSource= new MatTableDataSource(filteredData)
   }

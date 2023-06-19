@@ -1,37 +1,66 @@
 <h3 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-slate-700 md:text-4xl lg:text-4	xl dark:text-white text-center" >Manage products</h3>
-<button class="scents-color text-white font-bold py-2 px-4 rounded-full" (click)="redirectToAddProduct()">	
-	Add product
-  </button>
-  <br>	
-  <br>
-<table mat-table  #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows matSortDisableClear class="mat-elevation-z8" matSort>
-	<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-		<th mat-header-cell class="scents-color" *matHeaderCellDef mat-sort-header> {{column}} </th>
-		<td mat-cell  *matCellDef="let element"> {{element[column]}} </td>
-	</ng-container>
 
+  <div>
+	<div class="search-container">
+	  <div class="left">
+		<mat-form-field appearance="fill">
+		  <mat-label>Search </mat-label>
+			<input matInput autocomplete="off" (keyup)="filterData($event)">
+		</mat-form-field>
+		<button class="scents-color add-product-button text-white font-bold py-2 px-4 rounded-full" (click)="redirectToAddProduct()"> Add product
+		</button>
+	  </div>
+	  <div class="right-container">
+		<div class="right">
+		<mat-form-field appearance="fill">
+			<mat-label>Sort By Gender </mat-label>
+			<mat-select (selectionChange)="onChange($event)">
+				<mat-option value="male">{{'Male'}}</mat-option>
+				<mat-option value="female">{{'Female'}}</mat-option>
+				<mat-option value="unisex">Unisex</mat-option>
+			</mat-select>
+		</mat-form-field>
+		</div>
+		<div class="right">
+		<mat-form-field appearance="fill">
+		  <mat-label>Sort by Brand</mat-label>
+		  <mat-select (selectionChange)="onChange($event)">
+			  <mat-option *ngFor="let product of productsHeader" value="{{product.brand}}">{{product.brand}}</mat-option>
+		  </mat-select>
+	  </mat-form-field>
+		</div>
+	  </div>
+	</div>
+	<table mat-table matSort [dataSource]="dataSource" matSortDisableClear class="mat-elevation-z8">
 	
-	<ng-container matColumnDef="expandedDetail">
-		<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-			<div class="example-element-detail" *ngIf="element.detailsResponse?.length" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-				<div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
-          
-          <table #innerTables mat-table #innerSort="matSort" [dataSource]="element.detailsResponse" matSort>
-            <ng-container matColumnDef="{{innerColumn}}" *ngFor="let innerColumn of innerDisplayedColumns">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{innerColumn}} </th>
-              <td mat-cell *matCellDef="let element"> {{element[innerColumn]}} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;"></tr>
-          </table>
-				</div>
-			</div>
-		</td>
-	</ng-container>
-
-	<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-	<tr mat-row *matRowDef="let element; columns: columnsToDisplay;" [class.example-element-row]="element.detailsResponse?.length"
-	 [class.example-expanded-row]="expandedElement === element" (click)="toggleRow(element)">
-	</tr>
-	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>
+	  <ng-container matColumnDef="id">
+		<th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
+		<td mat-cell *matCellDef="let element">{{ element.id }}</td>
+	  </ng-container>
+	
+	  <ng-container matColumnDef="name">
+		<th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
+		<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+	  </ng-container>
+	  <ng-container matColumnDef="brand">
+		<th mat-header-cell mat-sort-header *matHeaderCellDef>Brand</th>
+		<td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+	  </ng-container>
+	  <ng-container matColumnDef="gender">
+		<th mat-header-cell mat-sort-header *matHeaderCellDef>Gender</th>
+		<td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+	  </ng-container>
+	  <ng-container matColumnDef="noOfConfigs">
+		<th mat-header-cell mat-sort-header *matHeaderCellDef>No. of Configs</th>
+		<td mat-cell *matCellDef="let element">{{ element.noOfConfigs }}</td>
+	  </ng-container>
+	  
+	  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+	</table>
+	<mat-paginator #paginator
+	[pageSize]="5"
+	[pageSizeOptions]="[25, 50, 100, 200]"
+	aria-label="Select page">
+	</mat-paginator>
+	</div>

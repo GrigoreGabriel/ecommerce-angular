@@ -8,20 +8,13 @@ export interface ProductHeader{
   name:string;
   brand:string;
   gender:string;
-  detailsResponse?: ProductDetails[] | MatTableDataSource<ProductDetails>;
+  noOfConfigs:number;
 }
 export interface ProductDetails{
   id:number;
   qtyInStock:number;
   size:string;
   price:number;
-}
-export interface ProductHeaderDataSource {
-  id:number;
-  name:string;
-  brand:string;
-  gender:string;
-  details?:MatTableDataSource<ProductDetails>;
 }
 export interface ProductCategory{
   id:number;

@@ -1,8 +1,10 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 import { Product } from 'src/app/public/models/product.model';
 import { ProductDetails, ProductHeader, ProductService } from 'src/app/public/services/product.service';
 @Component({
@@ -18,64 +20,45 @@ import { ProductDetails, ProductHeader, ProductService } from 'src/app/public/se
   ],
 })
 export class ProductsTableComponent {
-  @ViewChild('outerSort', { static: true }) sort!: MatSort;
-  @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
-  @ViewChildren('innerTables') innerTables!: QueryList<MatTable<ProductDetails>>;
+  @ViewChild('paginator') paginator! : MatPaginator;
+  @ViewChild(MatSort) matSort! : MatSort;
 
-  dataSource!: MatTableDataSource<ProductHeader>;
+  dataSource! :MatTableDataSource<any>;
   productsHeader: ProductHeader[] = [];
-  columnsToDisplay = ['id', 'brand', 'gender'];
-  innerDisplayedColumns = ['id', 'qtyInStock', 'size','price'];
-  expandedElement!: ProductHeader | null;
-  actualProducts :ProductHeader[] = [];
+  apiResponse:any = [];
+  displayedColumns = ['id','name','brand','gender','noOfConfigs'];
+
   constructor(
-    private cd: ChangeDetectorRef, 
     private _productService: ProductService,
     private router: Router
   ) { }
 
   ngOnInit() {
    this._productService.getProductDetails().subscribe(products => {
-    this.actualProducts=products;
-    this.productsHeader = products.map(product => {
-      if (product.detailsResponse && Array.isArray(product.detailsResponse) && product.detailsResponse.length) {
-        return { ...product, detailsResponse: new MatTableDataSource(product.detailsResponse) };
-      } else {
-        return product;
+    this.productsHeader=products;
+    this.apiResponse = products
+    this.dataSource= new MatTableDataSource(products)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.matSort;
+   });
+  
+  }
+  filterData($event:any){
+    this.dataSource.filter = $event.target.value
+  }
+  onChange($event:any){
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      if (item.gender && item.gender.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
       }
+      if (item.brand && item.brand.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
+      }
+      return false;
     });
-    this.dataSource = new MatTableDataSource(this.actualProducts);
-    this.dataSource.sort = this.sort;
-  });
-
-    
-  }
-
-  toggleRow(element: ProductHeader) {
-    element.detailsResponse && (element.detailsResponse as MatTableDataSource<ProductDetails>).data?.length ? (this.expandedElement  = this.expandedElement === element ? null : element) : null;
-    this.cd.detectChanges();
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<ProductDetails>).sort = this.innerSort.toArray()[index]);
-    
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value
-    this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<ProductDetails>).filter = filterValue.trim().toLowerCase());
+    this.dataSource= new MatTableDataSource(filteredData)
   }
   redirectToAddProduct(){
     this.router.navigate(['add-product']);
   }
-}
-// export interface ProductHeader{
-//   id:number;
-//   name:string;
-//   brand:string;
-//   gender:string;
-//   detailsResponse?: ProductDetails[] | MatTableDataSource<ProductDetails>;
-// }
-// export interface ProductDetails{
-//   id:number;
-//   qtyInStock:number;
-//   size:string;
-//   price:number;
-// }
+  }
