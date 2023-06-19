@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit {
 
   addToFavorites(productId:number){
     const userId = localStorage.getItem('userId');
-    this.userService.addFavoriteProduct(userId!,productId).subscribe();
+    this.userService.addFavoriteProduct(userId!,productId).subscribe({
+      next:()=>this.toast.success("Product added to favorites!"),
+      error:()=>this.toast.error("Product already in favorites!")
+    });
   }
 }

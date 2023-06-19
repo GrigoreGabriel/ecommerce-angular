@@ -1,23 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './core/auth/auth.service';
 import { CartSummaryService } from './shared/services/cart-summary.service';
+import { CartService, CartContents } from './core/services/cart.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'eCommerceClient';
   isCartOpen:boolean=false;
   itemsInCart:number = 0;
   constructor(
     public authService:AuthService,
-    private cartService:CartSummaryService,
+    private cartSummaryService:CartSummaryService,
+    private cartService:CartService,
     private router: Router){
 
   }
+  ngOnInit(): void {
+    const userId = localStorage.getItem('userId');
+    this.cartService.getNoOfItemsInCart(userId!).subscribe(number=>{
+      this.itemsInCart=number
+    });
+  }
+  
+
   logout(){
     this.authService.logout().subscribe(()=>{
       localStorage.removeItem('userId');
