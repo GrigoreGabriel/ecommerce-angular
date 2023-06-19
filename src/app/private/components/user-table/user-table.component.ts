@@ -5,7 +5,11 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import * as _ from 'lodash';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -25,16 +29,38 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class UserTableComponent implements OnInit {
   userDetails: UserListInfo[] = [];
+  apiResponse:any = [];
+
   ngOnInit(): void {
     this.userService.getUserList().subscribe((response) => {
       this.userDetails = response;
-      this.dataSource=this.userDetails;
+      this.apiResponse = response;
+      this.dataSource= new MatTableDataSource(response)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.matSort;
     });
   }
   constructor(private userService: UserService) {}
+  @ViewChild('paginator') paginator! : MatPaginator;
+  @ViewChild(MatSort) matSort! : MatSort;
   dataSource :any;
   columnsToDisplay = ['userId','name', 'email', 'country', 'accountStatus'];
   expandedElement!: UserListInfo | null;
+  filterData($event:any){
+    this.dataSource.filter = $event.target.value
+  }
+  onChange($event:any){
+    let filteredData = _.filter(this.apiResponse,(item)=>{
+      if (item.country && item.country.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
+      }
+      if (item.accountStatus && item.accountStatus.toLowerCase() === $event.value.toLowerCase()) {
+        return true;
+      }
+      return false;
+    });
+    this.dataSource= new MatTableDataSource(filteredData)
+  }
 }
 export interface UserListInfo {
   userId:string;

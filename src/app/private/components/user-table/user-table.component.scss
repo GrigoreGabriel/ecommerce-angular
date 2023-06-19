@@ -46,3 +46,30 @@ table {
   .example-element-description-attribution {
     opacity: 0.5;
   }
+  .search-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .left {
+    order: 1;
+  }
+  .right-container{
+    display: flex;
+    gap: 10px;
+    order: 2;
+  }
+  .right {
+    flex: 1;
+  }
+  .add-product-button{
+  position: relative;
+  bottom: 7px;
+  background-color:#418d9e;
+  left:10px;
+  }
+  .text-bold{
+  font-weight: 700;
+  }
+    .scents-color{
+      background-color:#418d9e;
+    }
