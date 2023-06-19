@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 export interface CartContents {
+  id:number;
   productImageUrl: string;
   productName: string;
   productItemType: string;
@@ -26,5 +27,8 @@ export class CartService {
   }
   addProductToCart(data:any){
     return this.http.post<any>(this.apiUrl+`/productToCart`,data); 
+  }
+  removeItemFromCart(userId:string,shoppingCartItemId:number){
+    return this.http.delete<any>(this.apiUrl+`/removeProductFromCart?userId=${userId}&shoppingCartItemId=${shoppingCartItemId}` , {observe:'response'});
   }
 }

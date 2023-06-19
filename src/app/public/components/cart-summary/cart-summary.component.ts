@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
 import { CartContents, CartService } from 'src/app/core/services/cart.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class CartSummaryComponent implements OnInit{
   cartOpen = new EventEmitter<boolean>();
   userId:any;
   cartContents: CartContents[]= [];
-constructor(private cartService: CartService){}
+constructor(
+  private cartService: CartService,
+  private toast:HotToastService
+  ){}
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
      this.cartService.getCartContents(this.userId).subscribe((response)=>{
@@ -22,5 +26,12 @@ constructor(private cartService: CartService){}
   closeModal(){
     this.cartOpen.emit(false);
   }
-  
+  removeProductFromCart(shoppingCartItemId:number){
+    this.cartService.removeItemFromCart(this.userId,shoppingCartItemId).subscribe({
+      next:()=>{
+        this.toast.info("Item removed successfully");
+        this.cartContents = this.cartContents.filter(x=>x.id !== shoppingCartItemId);
+      },
+    });
+  }
 }
