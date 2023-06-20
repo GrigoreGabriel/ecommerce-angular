@@ -16,6 +16,14 @@ export interface ProductDetails{
   size:string;
   price:number;
 }
+export interface ProductCheckout{
+  id:number;
+  productImageUrl:string;
+  productName:string;
+  productItemType:string;
+  quantity:number;
+  totalItemValue:number;
+}
 export interface ProductCategory{
   id:number;
   name:string;
@@ -26,13 +34,11 @@ export interface ProductItem{
   type:string;
   price:number;
 }
-
 export interface ProductShort{
   id:number;
   name:string;
   variations:number;
 }
-
 @Injectable({
   providedIn: 'root'
 })
