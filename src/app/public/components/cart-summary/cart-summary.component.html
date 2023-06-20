@@ -23,7 +23,6 @@
                 <div class="mt-8">
                   <div class="flow-root">
                     <ul role="list" class="-my-6 divide-y divide-gray-200">
-                      <!-- one product -->
                       <li class="flex py-6" *ngFor="let product of cartContents">
                         <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img src="{{product.productImageUrl}}" alt="image not available" class="h-full w-full object-cover object-center">
@@ -35,7 +34,7 @@
                               <h3>
                                 <a href="#">{{product.productName}}</a>
                               </h3>
-                              <p class="ml-4">{{product.totalItemValue | currency}}</p>
+                              <p class="ml-4">{{product.totalItemValue | currency }}</p>
                             </div>
                             <p class="mt-1 text-sm text-gray-500">{{product.productItemType}}</p>
                           </div>
@@ -48,9 +47,6 @@
                           </div>
                         </div>
                       </li>
-                      <!--  -->
-                    
-                      <!-- More products... -->
                     </ul>
                   </div>
                 </div>
@@ -59,7 +55,7 @@
               <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div class="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
-                  <p>$180.00</p>
+                  <p>{{totalCartValue | currency }}  </p>
                 </div>
                 <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                 <div class="mt-6">

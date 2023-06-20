@@ -12,6 +12,7 @@ export class CartSummaryComponent implements OnInit{
   cartOpen = new EventEmitter<boolean>();
   userId:any;
   cartContents: CartContents[]= [];
+  totalCartValue:number=0;
 constructor(
   private cartService: CartService,
   private toast:HotToastService
@@ -20,7 +21,9 @@ constructor(
     this.userId = localStorage.getItem('userId');
      this.cartService.getCartContents(this.userId).subscribe((response)=>{
       this.cartContents=response;
-     })
+     });
+     this.cartService.getTotalCartValue(this.userId).subscribe(total=>
+      this.totalCartValue=total);
   }
 
   closeModal(){
@@ -31,6 +34,8 @@ constructor(
       next:()=>{
         this.toast.info("Item removed successfully");
         this.cartContents = this.cartContents.filter(x=>x.id !== shoppingCartItemId);
+        this.cartService.getTotalCartValue(this.userId).subscribe(total=>
+          this.totalCartValue=total);
       },
     });
   }

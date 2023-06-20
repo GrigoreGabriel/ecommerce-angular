@@ -31,4 +31,9 @@ export class CartService {
   removeItemFromCart(userId:string,shoppingCartItemId:number){
     return this.http.delete<any>(this.apiUrl+`/removeProductFromCart?userId=${userId}&shoppingCartItemId=${shoppingCartItemId}` , {observe:'response'});
   }
+  getTotalCartValue(userId: string) {
+    return this.http.get<number>(
+      this.apiUrl + `/cartTotalValue?userId=${userId}`
+    );
+  }
 }
