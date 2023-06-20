@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   title = 'eCommerceClient';
   isCartOpen:boolean=false;
   itemsInCart:number = 0;
+  refreshCart:boolean = false;
   constructor(
     public authService:AuthService,
     private cartSummaryService:CartSummaryService,
@@ -23,8 +24,17 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     const userId = localStorage.getItem('userId');
     this.cartService.getNoOfItemsInCart(userId!).subscribe(number=>{
-      this.itemsInCart=number
+      this.itemsInCart=number;
     });
+    this.cartService.cartRefresh$.subscribe((refresh) =>{
+      this.refreshCart = refresh;
+      if(this.refreshCart){
+        this.cartService.getNoOfItemsInCart(userId!).subscribe(number=>{
+          this.itemsInCart=number;
+        });
+        this.refreshCart=false;
+      }
+    })
   }
   
 

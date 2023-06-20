@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 export interface CartContents {
   id:number;
   productImageUrl: string;
@@ -14,7 +15,12 @@ export interface CartContents {
 export class CartService {
   readonly apiUrl = 'https://localhost:7141/api/cart';
   constructor(private http: HttpClient) {}
-
+  private _cartRefreshSource$ = new Subject<boolean>();
+  cartRefresh$= this._cartRefreshSource$.asObservable();
+  
+  refreshCart(){
+    this._cartRefreshSource$.next(true);
+  }
   getNoOfItemsInCart(userId: string) {
     return this.http.get<number>(
       this.apiUrl + `/numberOfItemsInCart?userId=${userId}`

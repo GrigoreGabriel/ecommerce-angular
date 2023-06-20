@@ -82,11 +82,16 @@ export class ProductComponent implements OnInit, OnChanges {
       this.cartService.addProductToCart(productData).subscribe({
         next:()=>{
           this.toast.success("Cart has been updated");
+          this.refreshCart();
         },
         error:()=>{
           this.toast.success("Cart has been updated");
+          this.refreshCart();
         }
       });
+    }
+    refreshCart(){
+      this.cartService.refreshCart();
     }
   }
   

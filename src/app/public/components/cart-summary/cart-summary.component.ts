@@ -7,36 +7,43 @@ import { CartContents, CartService } from 'src/app/core/services/cart.service';
   templateUrl: './cart-summary.component.html',
   styleUrls: ['./cart-summary.component.scss'],
 })
-export class CartSummaryComponent implements OnInit{
+export class CartSummaryComponent implements OnInit {
   @Output()
   cartOpen = new EventEmitter<boolean>();
-  userId:any;
-  cartContents: CartContents[]= [];
-  totalCartValue:number=0;
-constructor(
-  private cartService: CartService,
-  private toast:HotToastService
-  ){}
+  userId: any;
+  cartContents: CartContents[] = [];
+  totalCartValue: number = 0;
+  constructor(
+    private cartService: CartService,
+    private toast: HotToastService
+  ) {}
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
-     this.cartService.getCartContents(this.userId).subscribe((response)=>{
-      this.cartContents=response;
-     });
-     this.cartService.getTotalCartValue(this.userId).subscribe(total=>
-      this.totalCartValue=total);
+    this.cartService.getCartContents(this.userId).subscribe((response) => {
+      this.cartContents = response;
+    });
+    this.cartService
+      .getTotalCartValue(this.userId)
+      .subscribe((total) => (this.totalCartValue = total));
   }
 
-  closeModal(){
+  closeModal() {
     this.cartOpen.emit(false);
   }
-  removeProductFromCart(shoppingCartItemId:number){
-    this.cartService.removeItemFromCart(this.userId,shoppingCartItemId).subscribe({
-      next:()=>{
-        this.toast.info("Item removed successfully");
-        this.cartContents = this.cartContents.filter(x=>x.id !== shoppingCartItemId);
-        this.cartService.getTotalCartValue(this.userId).subscribe(total=>
-          this.totalCartValue=total);
-      },
-    });
+  removeProductFromCart(shoppingCartItemId: number) {
+    this.cartService
+      .removeItemFromCart(this.userId, shoppingCartItemId)
+      .subscribe({
+        next: () => {
+          this.toast.info('Item removed successfully');
+          this.cartContents = this.cartContents.filter(
+            (x) => x.id !== shoppingCartItemId
+          );
+          this.cartService.getTotalCartValue(this.userId).subscribe((total) => {
+            this.totalCartValue = total;
+            this.cartService.refreshCart();
+          });
+        },
+      });
   }
 }
