@@ -12,6 +12,7 @@ import * as _ from 'lodash'
 export class AddStockComponent implements OnInit {
   productOptions:ProductShort[] = [];
   productTypes: any[] = [];
+  suppliersList:any[] =[];
   filteredOptions: any;
   success:boolean = false;
   sizeValue:string=''
@@ -24,10 +25,12 @@ constructor(private productService: ProductService, private fb:FormBuilder){}
     this.productService.getProductShortDetails().subscribe(products=>{
       this.productOptions=products;
       this.filteredOptions=products;
+    });
     this.productService.getProductTypes().subscribe(types=>{
       this.productTypes=types;
     })
-  });
+    this.productService.getSuppliers().subscribe(suppliers=>
+      this.suppliersList=suppliers)
     this.initForm();
 }
 
@@ -35,10 +38,11 @@ initForm(){
   this.formGroup=this.fb.group({
     'selectedProductId' : [''],
     'qtyInStock' : [''],
+    'purchasePrice': [''],
     'price': [''],
     'size': [''],
     'typeName': [''],
-
+    'supplierName': ['']
   })
   this.formGroup?.get('selectedProductId')?.valueChanges.subscribe(response=>{
     this.filterData(response)

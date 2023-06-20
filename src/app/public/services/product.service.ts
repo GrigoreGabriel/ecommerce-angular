@@ -76,4 +76,7 @@ export class ProductService {
   addProductItem(productItem:any) {
     return this.http.post<any>(`${this.apiUrl}/addProductItem`,productItem ,{observe:'response'})
   }
+  getSuppliers() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/getSuppliers`)
+  }
 }

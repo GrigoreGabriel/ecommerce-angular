@@ -28,6 +28,8 @@ import { StockComponent } from './components/stock/stock.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AddStockComponent } from './components/add-stock/add-stock.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SupplierTableComponent } from './components/supplier-table/supplier-table.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -39,7 +41,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ProductsTableComponent,
     AddProductComponent,
     StockComponent,
-    AddStockComponent
+    AddStockComponent,
+    CheckoutComponent,
+    SupplierTableComponent
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./stock.component.scss']
 })
 export class StockComponent implements OnInit{
-  displayedColumns = ['brand','name','qtyInStock','type','price','size'];
+  displayedColumns = ['brand','name','supplier','purchasePrice','qtyInStock','type','price','size'];
   dataSource! :MatTableDataSource<any>;
   stockValue:number = 0;
   apiResponse:any = [];

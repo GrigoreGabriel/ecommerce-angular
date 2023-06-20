@@ -46,6 +46,7 @@
   <button mat-menu-item (click)="redirectToUserTable()" >Users</button>
   <button mat-menu-item (click)="redirectToProductsTable()" >Products</button>
   <button mat-menu-item (click)="redirectToStocktable()" >Stock</button>
+  <button mat-menu-item (click)="redirectToSuppliersTable()" >Suppliers</button>
 
 </mat-menu>
 <app-cart-summary *ngIf="isCartOpen" (cartOpen)="changeOpenStatus(false)"></app-cart-summary>

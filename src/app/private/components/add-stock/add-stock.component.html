@@ -15,6 +15,18 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Supplier</mat-label>
+    <mat-select formControlName="supplierName">
+      <mat-option *ngFor="let supplier of suppliersList" value="{{supplier.name}}">{{supplier.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Supplier Price </mat-label>
+    <input formControlName="purchasePrice" matInput>
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Essence Type</mat-label>
     <mat-select formControlName="typeName">
       <mat-option *ngFor="let type of productTypes" value="{{type.name}}">{{type.name}}</mat-option>

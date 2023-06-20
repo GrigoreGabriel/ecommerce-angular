@@ -65,4 +65,7 @@ export class AppComponent implements OnInit{
   redirectToStocktable(){
     this.router.navigate(['stock'])
   }
+  redirectToSuppliersTable(){
+    this.router.navigate(['suppliers'])
+  }
 }
