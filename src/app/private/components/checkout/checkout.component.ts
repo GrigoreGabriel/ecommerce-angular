@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { ProductCheckout } from 'src/app/public/services/product.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { OrderService } from 'src/app/core/services/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,9 +12,11 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class CheckoutComponent implements OnInit{
 itemsInList:ProductCheckout[] =[];
+formGroup!:FormGroup;
 totalValue:number=0;
 userDetails:any;
 userId:any;
+
   ngOnInit(): void {
     this.userId=localStorage.getItem('userId');
     this._cartService.getCartContents(this.userId).subscribe(items=>{
@@ -25,6 +29,18 @@ userId:any;
       this.userDetails=user;
     })
   }
+  // initForm(){
+  //   this.formGroup=this.fb.group({
+  //     'userId' : [this.userId],
+  //   })
+  // }
 constructor(private _cartService:CartService,
-  private userService : UserService){}
+  private userService : UserService,
+  private orderService:OrderService,
+  private fb:FormBuilder){}
+  placeOrder(){
+    this.orderService.checkout({userId:this.userId}).subscribe(response=>{
+
+    })
+  }
 }
