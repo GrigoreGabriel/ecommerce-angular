@@ -14,10 +14,7 @@
     <mat-form-field appearance="fill">
         <mat-label>Size </mat-label>
         <mat-select (selectionChange)="onChange($event)">
-            <mat-option value="30ml">30ml</mat-option>
-            <mat-option value="50ml">50ml</mat-option>
-            <mat-option value="75ml">75ml</mat-option>
-            <mat-option value="100ml">100ml</mat-option>
+            <mat-option *ngFor="let product of productSizes "value="{{product.size}}">{{product.size}}</mat-option>
         </mat-select>
     </mat-form-field>
     </div>
@@ -31,6 +28,14 @@
       </mat-select>
   </mat-form-field>
     </div>
+    <div class="right">
+      <mat-form-field appearance="fill">
+        <mat-label>Supplier </mat-label>
+        <mat-select (selectionChange)="onChange($event)">
+            <mat-option *ngFor="let supplier of supplierNames"value="{{supplier.name}}">{{supplier.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+      </div>
   </div>
 </div>
 <table mat-table matSort [dataSource]="dataSource" matSortDisableClear class="mat-elevation-z8">

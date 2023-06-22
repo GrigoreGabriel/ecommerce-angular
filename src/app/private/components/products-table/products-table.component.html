@@ -25,8 +25,7 @@
 		<mat-form-field appearance="fill">
 		  <mat-label>Sort by Brand</mat-label>
 		  <mat-select (selectionChange)="onChange($event)">
-			  <mat-option *ngFor="let product of productsHeader" value="{{product.brand}}">{{product.brand}}</mat-option>
-			  <!-- FIX -->
+			  <mat-option *ngFor="let product of productBrands" value="{{product.name}}">{{product.name}}</mat-option>
 		  </mat-select>
 	  </mat-form-field>
 		</div>

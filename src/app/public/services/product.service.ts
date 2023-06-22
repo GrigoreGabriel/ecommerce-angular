@@ -39,6 +39,14 @@ export interface ProductShort{
   name:string;
   variations:number;
 }
+export interface SupplierHeader{
+  id:number;
+  name:string;
+  personOfContact:string;
+  phoneNumber:string;
+  registrationNumber:string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -84,5 +92,20 @@ export class ProductService {
   }
   getSuppliers() :Observable<any[]>{
     return this.http.get<any[]>(`${this.apiUrl}/getSuppliers`)
+  }
+  getSupplierStock() :Observable<SupplierHeader[]>{
+    return this.http.get<SupplierHeader[]>(`${this.apiUrl}/getSupplierStock`)
+  }
+  getProductBrands() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/productBrands`)
+  }
+  getSupplierNames() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/supplierNames`)
+  }
+  getProductSizes() :Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/productSizes`)
+  }
+  addSupplier(supplier:any) {
+    return this.http.post<any>(`${this.apiUrl}/addSupplier`,supplier ,{observe:'response'})
   }
 }

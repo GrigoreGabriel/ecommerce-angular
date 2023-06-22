@@ -15,6 +15,8 @@ export class StockComponent implements OnInit{
   dataSource! :MatTableDataSource<any>;
   stockValue:number = 0;
   apiResponse:any = [];
+  supplierNames :any[] =[];
+  productSizes : any[] =[];
   @ViewChild('paginator') paginator! : MatPaginator;
   @ViewChild(MatSort) matSort! : MatSort;
 constructor(private productService: ProductService,
@@ -29,20 +31,32 @@ constructor(private productService: ProductService,
     });
     this.productService.getStockValue().subscribe(value=>
       this.stockValue=value);
+    this.productService.getSupplierNames().subscribe(names=>{
+      this.supplierNames=names;
+    });
+    this.productService.getProductSizes().subscribe(sizes=>{
+      this.productSizes=sizes;
+    });
   }
   filterData($event:any){
     this.dataSource.filter = $event.target.value
   }
   onChange($event:any){
-    let filteredData = _.filter(this.apiResponse,(item)=>{
-      if (item.size && item.size.toLowerCase() === $event.value.toLowerCase()) {
-        return true;
-      }
-      if (item.type && item.type.toLowerCase() === $event.value.toLowerCase()) {
+    let filteredData = _.filter(this.apiResponse, (item) => {
+      const value = $event.value.toLowerCase();
+      if (
+        (item.size && item.size.toLowerCase() === value) ||
+        (item.type && item.type.toLowerCase() === value) ||
+        (item.supplier && item.supplier.toLowerCase() === value) ||
+        (item.size && item.size.toLowerCase() === value && item.type && item.type.toLowerCase() === value) ||
+        (item.size && item.size.toLowerCase() === value && item.supplier && item.supplier.toLowerCase() === value) ||
+        (item.type && item.type.toLowerCase() === value && item.supplier && item.supplier.toLowerCase() === value) ||
+        (item.size && item.size.toLowerCase() === value && item.type && item.type.toLowerCase() === value && item.supplier && item.supplier.toLowerCase() === value)
+      ) {
         return true;
       }
       return false;
-    })
+    });
     this.dataSource= new MatTableDataSource(filteredData)
   }
   redirectToAddStock(){

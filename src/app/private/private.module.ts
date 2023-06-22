@@ -30,6 +30,7 @@ import { AddStockComponent } from './components/add-stock/add-stock.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SupplierTableComponent } from './components/supplier-table/supplier-table.component';
+import { AddSupplierComponent } from './components/add-supplier/add-supplier.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -43,7 +44,8 @@ import { SupplierTableComponent } from './components/supplier-table/supplier-tab
     StockComponent,
     AddStockComponent,
     CheckoutComponent,
-    SupplierTableComponent
+    SupplierTableComponent,
+    AddSupplierComponent
   ],
   imports: [
     CommonModule,

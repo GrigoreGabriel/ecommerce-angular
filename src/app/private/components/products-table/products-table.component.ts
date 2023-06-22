@@ -27,7 +27,7 @@ export class ProductsTableComponent {
   productsHeader: ProductHeader[] = [];
   apiResponse:any = [];
   displayedColumns = ['id','name','brand','gender','noOfConfigs'];
-
+  productBrands:any[]=[];
   constructor(
     private _productService: ProductService,
     private router: Router
@@ -41,7 +41,9 @@ export class ProductsTableComponent {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.matSort;
    });
-  
+   this._productService.getProductBrands().subscribe(brands=>{
+    this.productBrands=brands;
+  })
   }
   filterData($event:any){
     this.dataSource.filter = $event.target.value
