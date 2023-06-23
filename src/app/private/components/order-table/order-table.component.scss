@@ -1,0 +1,33 @@
+.search-container{
+    display: flex;
+    justify-content: space-between;
+}
+.left {
+    order: 1;
+  }
+.right-container{
+    display: flex;
+    gap: 10px;
+    order: 2;
+}
+.right {
+    flex: 1;
+  }
+.add-stock-button{
+  position: relative;
+  bottom: 7px;
+  background-color:#418d9e;
+  left:10px;
+}
+.text-bold{
+  font-weight: 700;
+}
+.clickable-id {
+    color:#418d9e;
+    text-decoration: none;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  .clickable-id:hover {
+    text-decoration: underline;
+  } 

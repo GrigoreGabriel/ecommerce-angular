@@ -1,0 +1,30 @@
+ <div class="px-4 pt-8">
+      <p class="text-xl font-medium">Order {{orderId}}</p>
+      <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+        <!-- product -->
+        <div class="flex flex-col rounded-lg bg-white sm:flex-row" *ngFor="let item of orderItems">
+          <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="{{item.imageUrl}}" alt="" />
+          <div class="flex w-full flex-col px-4 py-4">
+            <span class="font-semibold">{{item.productName}}</span>
+            <span class="float-right text-gray-400">{{item.productType}}</span>
+            <span class="float-right text-gray-400">{{item.quantity}}</span>
+            <p class="text-lg font-bold">{{item.totalValue | currency}}</p>
+          </div>
+        </div>
+        <!-- end -->
+      </div>    
+      <br>
+<dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+    <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">User Name</dt>
+        <dd class="text-lg font-semibold">{{userDetails[0].userName}}</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Home address</dt>
+        <dd class="text-lg font-semibold">{{userDetails[0].userAdressLine +' '+ userDetails[0].userCity +' '+ userDetails[0].userCountry }}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Phone number</dt>
+        <dd class="text-lg font-semibold">{{userDetails[0].userPhone}}</dd>
+    </div>
+</dl>

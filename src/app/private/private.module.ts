@@ -31,6 +31,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SupplierTableComponent } from './components/supplier-table/supplier-table.component';
 import { AddSupplierComponent } from './components/add-supplier/add-supplier.component';
+import { OrderTableComponent } from './components/order-table/order-table.component';
+import { OrderComponent } from './components/order/order.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -45,7 +47,9 @@ import { AddSupplierComponent } from './components/add-supplier/add-supplier.com
     AddStockComponent,
     CheckoutComponent,
     SupplierTableComponent,
-    AddSupplierComponent
+    AddSupplierComponent,
+    OrderTableComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule,

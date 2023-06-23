@@ -38,7 +38,8 @@
           <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="{{item.productImageUrl}}" alt="" />
           <div class="flex w-full flex-col px-4 py-4">
             <span class="font-semibold">{{item.productName}}</span>
-            <span class="float-right text-gray-400">{{item.productItemType}}</span>
+            <span class="float-right text-gray-400">{{item.productItemType }}</span>
+            <span class="float-right text-gray-400">{{'Qty '+item.quantity}}</span>
             <p class="text-lg font-bold">{{item.totalItemValue | currency}}</p>
           </div>
         </div>

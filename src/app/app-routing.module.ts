@@ -16,6 +16,8 @@ import { AddStockComponent } from './private/components/add-stock/add-stock.comp
 import { CheckoutComponent } from './private/components/checkout/checkout.component';
 import { SupplierTableComponent } from './private/components/supplier-table/supplier-table.component';
 import { AddSupplierComponent } from './private/components/add-supplier/add-supplier.component';
+import { OrderTableComponent } from './private/components/order-table/order-table.component';
+import { OrderComponent } from './private/components/order/order.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
@@ -92,6 +94,16 @@ const routes: Routes = [
     {
       path:'add-supplier',
       component:AddSupplierComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'order-table',
+      component:OrderTableComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'order/:id',
+      component:OrderComponent,
       ...canActivate(redirectToLogin)  
     },
 ];
