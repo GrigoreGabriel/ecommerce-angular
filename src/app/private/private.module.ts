@@ -8,7 +8,6 @@ import { AddressComponent } from './components/address/address.component';
 import { MatCardModule } from '@angular/material/card';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { OrderListComponent } from './components/order-list/order-list.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { MatSortModule } from '@angular/material/sort';
@@ -39,7 +38,6 @@ import { ThankYouPageComponent } from './components/thank-you-page/thank-you-pag
     PrivateComponent,
     AddressComponent,
     UserInfoComponent,
-    OrderListComponent,
     FavoritesComponent,
     UserTableComponent,
     ProductsTableComponent,

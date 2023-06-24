@@ -28,11 +28,10 @@ export class UserService {
   removeFavoriteProduct(userId:string,productId:number){
     return this.http.delete<any>(this.apiUrl+`/removeFavorite?userId=${userId}&productId=${productId}` ,{observe:'response'});
   }
-  updateUserDetails(userId:string,productId:number){
-    return this.http.post<any>(this.apiUrl+`/update-user-details?userId=${userId}&productId=${productId}`,null);
+  updateUserDetails(userDetails:any){
+    return this.http.put<any>(this.apiUrl+`/update-user-details`,userDetails,{observe:'response'});
   }
   getUserList(){
     return this.http.get<UserListInfo[]>(this.apiUrl+`/userList`);
   }
-
 }

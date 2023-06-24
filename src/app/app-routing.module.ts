@@ -6,7 +6,6 @@ import { SignUpComponent } from './public/components/sign-up/sign-up.component';
 import { HomeComponent } from './public/components/home/home.component';
 import {canActivate, redirectUnauthorizedTo,redirectLoggedInTo} from '@angular/fire/auth-guard';
 import { AddressComponent } from './private/components/address/address.component';
-import { OrderListComponent } from './private/components/order-list/order-list.component';
 import { FavoritesComponent } from './private/components/favorites/favorites.component';
 import { UserTableComponent } from './private/components/user-table/user-table.component';
 import { ProductsTableComponent } from './private/components/products-table/products-table.component';
@@ -45,11 +44,6 @@ const routes: Routes = [
     {
       path:'address',
       component:AddressComponent,
-      ...canActivate(redirectToLogin)  
-    },
-    {
-      path:'order-list',
-      component:OrderListComponent,
       ...canActivate(redirectToLogin)  
     },
     {
@@ -110,6 +104,11 @@ const routes: Routes = [
     {
       path:'thank-you/:id',
       component:ThankYouPageComponent,
+      ...canActivate(redirectToLogin)  
+    },
+    {
+      path:'landing',
+      component:LandingComponent,
       ...canActivate(redirectToLogin)  
     },
 ];
