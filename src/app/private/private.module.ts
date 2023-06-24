@@ -33,6 +33,7 @@ import { SupplierTableComponent } from './components/supplier-table/supplier-tab
 import { AddSupplierComponent } from './components/add-supplier/add-supplier.component';
 import { OrderTableComponent } from './components/order-table/order-table.component';
 import { OrderComponent } from './components/order/order.component';
+import { ThankYouPageComponent } from './components/thank-you-page/thank-you-page.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -49,7 +50,8 @@ import { OrderComponent } from './components/order/order.component';
     SupplierTableComponent,
     AddSupplierComponent,
     OrderTableComponent,
-    OrderComponent
+    OrderComponent,
+    ThankYouPageComponent
   ],
   imports: [
     CommonModule,

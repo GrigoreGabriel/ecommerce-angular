@@ -38,6 +38,10 @@
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Order Date</th>
     <td mat-cell *matCellDef="let element">{{ element.orderDate | date}}</td>
   </ng-container>
+  <ng-container matColumnDef="isShipped">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Order Status</th>
+    <td mat-cell *matCellDef="let element">{{ element.isShipped ? 'Shipped' : 'Not Shipped'}}</td>
+  </ng-container>
   <ng-container matColumnDef="totalValue">
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Total</th>
     <td mat-cell *matCellDef="let element">{{ element.totalValue }}</td>

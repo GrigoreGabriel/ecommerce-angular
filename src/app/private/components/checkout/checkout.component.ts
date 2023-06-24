@@ -4,6 +4,7 @@ import { ProductCheckout } from 'src/app/public/services/product.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { OrderService } from 'src/app/core/services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -32,10 +33,11 @@ userId:any;
 constructor(private _cartService:CartService,
   private userService : UserService,
   private orderService:OrderService,
-  private fb:FormBuilder){}
+  private fb:FormBuilder,
+  private router: Router){}
   placeOrder(){
-    this.orderService.checkout({userId:this.userId}).subscribe(response=>{
-
-    })
+    this.orderService.checkout({userId:this.userId}).subscribe(result=>{
+        this.router.navigate(['thank-you/'+result.body])
+      });
   }
 }

@@ -14,7 +14,7 @@ import { Order, OrderService } from 'src/app/core/services/order.service';
 export class OrderTableComponent implements OnInit{
   @ViewChild('paginator') paginator! : MatPaginator;
   @ViewChild(MatSort) matSort! : MatSort;
-  displayedColumns = ['id','userId','city','country','orderDate','phoneNumber','totalValue'];
+  displayedColumns = ['id','userId','city','country','orderDate','phoneNumber','isShipped','totalValue'];
   dataSource! :MatTableDataSource<any>;
   apiResponse:any = [];
   orderList: Order[]=[];
