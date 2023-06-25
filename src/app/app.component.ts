@@ -14,6 +14,8 @@ export class AppComponent implements OnInit{
   isCartOpen:boolean=false;
   itemsInCart:number = 0;
   refreshCart:boolean = false;
+  isDropdownOpen : boolean = false;
+  isAdminPanelOpen :boolean=false;
   constructor(
     public authService:AuthService,
     private cartSummaryService:CartSummaryService,
@@ -37,7 +39,9 @@ export class AppComponent implements OnInit{
     })
   }
   
-
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
   logout(){
     this.authService.logout().subscribe(()=>{
       localStorage.removeItem('userId');
@@ -52,6 +56,9 @@ export class AppComponent implements OnInit{
   }
   changeOpenStatus(status:boolean){
     this.isCartOpen=status;
+  }
+  changeAdminPanelStatus(status:boolean){
+    this.isAdminPanelOpen=status;
   }
   redirectToFavoritesPage(){
     this.router.navigate(['favorites'])

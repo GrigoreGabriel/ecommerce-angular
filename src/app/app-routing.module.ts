@@ -18,13 +18,14 @@ import { AddSupplierComponent } from './private/components/add-supplier/add-supp
 import { OrderTableComponent } from './private/components/order-table/order-table.component';
 import { OrderComponent } from './private/components/order/order.component';
 import { ThankYouPageComponent } from './private/components/thank-you-page/thank-you-page.component';
+import { AdminPanelComponent } from './private/components/admin-panel/admin-panel.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
     {
       path:'',
       pathMatch:'full',
-      component:HomeComponent  
+      redirectTo:'landing',
     },
     {
       path:'login',
@@ -110,7 +111,7 @@ const routes: Routes = [
       path:'landing',
       component:LandingComponent,
       ...canActivate(redirectToLogin)  
-    },
+    },  
 ];
 
 @NgModule({

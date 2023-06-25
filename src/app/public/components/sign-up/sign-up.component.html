@@ -1,6 +1,6 @@
-<div class="form-container mat-elevation-z5">
+<div class="form-container mat-elevation-z5 full-screen-padding">
     <h1 class="header">Sign Up</h1>
-<form [formGroup]="signUpForm" (ngSubmit)="submit()">
+<form class="text-center" [formGroup]="signUpForm" (ngSubmit)="submit()">
     <mat-form-field>
         <input matInput placeholder="Name" formControlName="name">
         <mat-error *ngIf="name?.errors?.['required']">
@@ -32,7 +32,9 @@
         <button mat-raised-button color="primary" type="submit">
             Sign-Up
         </button>
-
+        
     </div>
+    <br>
+    <span class="text-center">Already signed up? <a class="scents-form-color font-semibold" href="login">Login</a></span>
 </form> 
 </div>

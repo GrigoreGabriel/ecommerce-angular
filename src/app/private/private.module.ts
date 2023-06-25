@@ -33,6 +33,7 @@ import { AddSupplierComponent } from './components/add-supplier/add-supplier.com
 import { OrderTableComponent } from './components/order-table/order-table.component';
 import { OrderComponent } from './components/order/order.component';
 import { ThankYouPageComponent } from './components/thank-you-page/thank-you-page.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -49,7 +50,8 @@ import { ThankYouPageComponent } from './components/thank-you-page/thank-you-pag
     AddSupplierComponent,
     OrderTableComponent,
     OrderComponent,
-    ThankYouPageComponent
+    ThankYouPageComponent,
+    AdminPanelComponent
   ],
   imports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { ThankYouPageComponent } from './components/thank-you-page/thank-you-pag
     PortalModule,
     ScrollingModule,
     ReactiveFormsModule
-  ]
+  ],
+  exports:[AdminPanelComponent]
 })
 export class PrivateModule { }
