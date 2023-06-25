@@ -109,8 +109,7 @@ const routes: Routes = [
     },
     {
       path:'landing',
-      component:LandingComponent,
-      ...canActivate(redirectToLogin)  
+      component:LandingComponent, 
     },  
 ];
 

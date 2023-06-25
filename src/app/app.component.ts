@@ -52,30 +52,33 @@ export class AppComponent implements OnInit{
     this.router.navigate(['address']);
   }
   returnToHome(){
-    this.router.navigate(['home'])
+    this.router.navigate(['home']);
   }
   changeOpenStatus(status:boolean){
     this.isCartOpen=status;
+  }
+  redirectToSignUp(){
+    this.router.navigate(['sign-up']);
   }
   changeAdminPanelStatus(status:boolean){
     this.isAdminPanelOpen=status;
   }
   redirectToFavoritesPage(){
-    this.router.navigate(['favorites'])
+    this.router.navigate(['favorites']);
   }
   redirectToUserTable(){
-    this.router.navigate(['user-table'])
+    this.router.navigate(['user-table']);
   }
   redirectToProductsTable(){
-    this.router.navigate(['product-list'])
+    this.router.navigate(['product-list']);
   }
   redirectToStocktable(){
-    this.router.navigate(['stock'])
+    this.router.navigate(['stock']);
   }
   redirectToSuppliersTable(){
-    this.router.navigate(['suppliers'])
+    this.router.navigate(['suppliers']);
   }
   redirectToOrdersTable(){
-    this.router.navigate(['order-table'])
+    this.router.navigate(['order-table']);
   }
 }
