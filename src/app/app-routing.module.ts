@@ -19,6 +19,7 @@ import { OrderTableComponent } from './private/components/order-table/order-tabl
 import { OrderComponent } from './private/components/order/order.component';
 import { ThankYouPageComponent } from './private/components/thank-you-page/thank-you-page.component';
 import { AdminPanelComponent } from './private/components/admin-panel/admin-panel.component';
+import { StatsComponent } from './private/components/stats/stats.component';
 const redirectToLogin=()=> redirectUnauthorizedTo(['login']);
 const redirectToHome=()=>redirectLoggedInTo(['home']);
 const routes: Routes = [
@@ -110,7 +111,11 @@ const routes: Routes = [
     {
       path:'landing',
       component:LandingComponent, 
-    },  
+    },
+    {
+      path:'app-stats',
+      component:StatsComponent, 
+    },   
 ];
 
 @NgModule({
