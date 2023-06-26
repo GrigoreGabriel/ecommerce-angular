@@ -20,6 +20,8 @@ export class OrderTableComponent implements OnInit{
   orderList: Order[]=[];
   numberOfOrders:number=0;
   totalOrderValue:number=0;
+  favoriteProduct:any[]=[];
+  totalOrdersShipped:number=0;
   constructor(private orderService:OrderService,
     private router: Router){}
   ngOnInit(): void {
@@ -34,6 +36,12 @@ export class OrderTableComponent implements OnInit{
     });
     this.orderService.getOrdersTotalValue().subscribe(total=>{
       this.totalOrderValue=total;
+    });
+    this.orderService.getMostOrderedItem().subscribe(item=>{
+      this.favoriteProduct=item;
+    });
+    this.orderService.getShippedOrdersNumber().subscribe(number=>{
+      this.totalOrdersShipped=number;
     });
   }
   filterData($event:any){
@@ -58,7 +66,6 @@ export class OrderTableComponent implements OnInit{
     this.dataSource= new MatTableDataSource(filteredData)
   }
   onIdClick(id:string){
-    console.log("da");
     this.router.navigate(['order/'+id])
   }
 }

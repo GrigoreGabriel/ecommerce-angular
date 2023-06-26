@@ -9,6 +9,14 @@ export interface Order{
   phoneNumber:string;
   totalValue:number;
 }
+export interface UserOrder{
+  id:string;
+  orderDate:Date;
+  country:string;
+  city:string;
+  phoneNumber:string;
+  totalValue:number;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +49,21 @@ export class OrderService {
   getOrdersTotalValue(){
     return this.http.get<number>(
       this.apiUrl + `/totalOrdersValue`
+    );
+  }
+  getOrdersByUserId(userId:string){
+    return this.http.get<UserOrder[]>(
+      this.apiUrl + `/userOrdersById?userId=${userId}`
+    );
+  }
+  getMostOrderedItem(){
+    return this.http.get<any[]>(
+      this.apiUrl + `/mostOrderedItem`
+    );
+  }
+  getShippedOrdersNumber(){
+    return this.http.get<number>(
+      this.apiUrl + `/itemsShipped`
     );
   }
 }

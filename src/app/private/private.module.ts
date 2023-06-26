@@ -35,6 +35,7 @@ import { OrderComponent } from './components/order/order.component';
 import { ThankYouPageComponent } from './components/thank-you-page/thank-you-page.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { StatsComponent } from './components/stats/stats.component';
+import { UserOrdersTableComponent } from './components/user-orders-table/user-orders-table.component';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -53,7 +54,8 @@ import { StatsComponent } from './components/stats/stats.component';
     OrderComponent,
     ThankYouPageComponent,
     AdminPanelComponent,
-    StatsComponent
+    StatsComponent,
+    UserOrdersTableComponent
   ],
   imports: [
     CommonModule,
