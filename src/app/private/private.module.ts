@@ -22,7 +22,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import {MatSelectModule} from '@angular/material/select'
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StockComponent } from './components/stock/stock.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AddStockComponent } from './components/add-stock/add-stock.component';
@@ -36,6 +36,8 @@ import { ThankYouPageComponent } from './components/thank-you-page/thank-you-pag
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { UserOrdersTableComponent } from './components/user-orders-table/user-orders-table.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     PrivateComponent,
@@ -76,8 +78,12 @@ import { UserOrdersTableComponent } from './components/user-orders-table/user-or
     MatAutocompleteModule,
     PortalModule,
     ScrollingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule
   ],
-  exports:[AdminPanelComponent]
+  exports:[AdminPanelComponent],
+  providers:[MatNativeDateModule]
 })
 export class PrivateModule { }

@@ -11,10 +11,11 @@
 		</button>
 	  </div>
 	  <div class="right-container">
+		<button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow reset-button" (click)="resetFilters()"> Reset filters</button>
 		<div class="right">
 		<mat-form-field appearance="fill">
 			<mat-label>Sort By Gender </mat-label>
-			<mat-select (selectionChange)="onChange($event)">
+			<mat-select #genderSelect (selectionChange)="onChange($event)">
 				<mat-option value="male">{{'Male'}}</mat-option>
 				<mat-option value="female">{{'Female'}}</mat-option>
 				<mat-option value="unisex">Unisex</mat-option>
@@ -24,7 +25,7 @@
 		<div class="right">
 		<mat-form-field appearance="fill">
 		  <mat-label>Sort by Brand</mat-label>
-		  <mat-select (selectionChange)="onChange($event)">
+		  <mat-select #brandSelect (selectionChange)="onChange($event)">
 			  <mat-option *ngFor="let product of productBrands" value="{{product.name}}">{{product.name}}</mat-option>
 		  </mat-select>
 	  </mat-form-field>

@@ -6,7 +6,9 @@ import {
   animate,
 } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatOption } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _ from 'lodash';

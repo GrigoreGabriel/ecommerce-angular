@@ -1,6 +1,8 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { MatOption } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -28,6 +30,9 @@ export class ProductsTableComponent {
   apiResponse:any = [];
   displayedColumns = ['id','name','brand','gender','noOfConfigs'];
   productBrands:any[]=[];
+  @ViewChild('genderSelect') genderSelect!: MatSelect;
+  @ViewChild('brandSelect') brandSelect!: MatSelect;
+
   constructor(
     private _productService: ProductService,
     private router: Router
@@ -63,4 +68,16 @@ export class ProductsTableComponent {
   redirectToAddProduct(){
     this.router.navigate(['add-product']);
   }
+  resetFilters(){
+    this._productService.getProductDetails().subscribe(products => {
+      this.productsHeader=products;
+      this.apiResponse = products
+      this.dataSource= new MatTableDataSource(products)
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.matSort;
+     });
+     this.genderSelect.options.forEach((data: MatOption) => data.deselect());
+     this.brandSelect.options.forEach((data: MatOption) => data.deselect());
+
   }
+}

@@ -9,12 +9,14 @@
         <input matInput autocomplete="off" (keyup)="filterData($event)">
     </mat-form-field>
     <button class="add-stock-button text-white font-bold py-2 px-4 rounded-full "(click)="redirectToAddStock()">Add Stock</button>
+    
   </div>
   <div class="right-container">
+    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow reset-button" (click)="resetFilters()"> Reset filters</button>
     <div class="right">
     <mat-form-field appearance="fill">
         <mat-label>Size </mat-label>
-        <mat-select (selectionChange)="onChange($event)">
+        <mat-select #searchSelect (selectionChange)="onChange($event) ">
             <mat-option *ngFor="let product of productSizes "value="{{product.size}}">{{product.size}}</mat-option>
         </mat-select>
     </mat-form-field>
@@ -22,7 +24,7 @@
     <div class="right">
     <mat-form-field appearance="fill">
       <mat-label>Essence Type </mat-label>
-      <mat-select (selectionChange)="onChange($event)">
+      <mat-select #essenceSelect (selectionChange)="onChange($event)">
           <mat-option value="Eau de perfume">Eau de perfume</mat-option>
           <mat-option value="Eau de toilette">Eau de toilette</mat-option>
           <mat-option value="Perfume">Perfume</mat-option>
@@ -32,7 +34,7 @@
     <div class="right">
       <mat-form-field appearance="fill">
         <mat-label>Supplier </mat-label>
-        <mat-select (selectionChange)="onChange($event)">
+        <mat-select #supplierSelect (selectionChange)="onChange($event)">
             <mat-option *ngFor="let supplier of supplierNames"value="{{supplier.name}}">{{supplier.name}}</mat-option>
         </mat-select>
     </mat-form-field>

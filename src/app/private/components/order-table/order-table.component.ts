@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,19 +16,51 @@ export class OrderTableComponent implements OnInit{
   @ViewChild('paginator') paginator! : MatPaginator;
   @ViewChild(MatSort) matSort! : MatSort;
   displayedColumns = ['id','userId','city','country','orderDate','phoneNumber','isShipped','totalValue'];
-  dataSource! :MatTableDataSource<any>;
+  dataSource :MatTableDataSource<any> = new MatTableDataSource();
   apiResponse:any = [];
   orderList: Order[]=[];
   numberOfOrders:number=0;
   totalOrderValue:number=0;
   favoriteProduct:any[]=[];
   totalOrdersShipped:number=0;
+
+  range = new FormGroup({
+		start: new FormControl<Date | null>(null),
+		end: new FormControl<Date | null>(null),
+	});
+
   constructor(private orderService:OrderService,
-    private router: Router){}
+    private router: Router){
+
+      this.dataSource.filterPredicate = (data: any, filter: string) => {
+        if (filter) {
+          const dateRange = filter.split(',');
+            return (
+              new Date(data.orderDate).getTime() >= new Date(dateRange[0]).getTime() &&
+              new Date(data.orderDate).getTime() <= new Date(dateRange[1]).getTime()
+              );
+            }
+        return true;  
+      };
+    }
+    ngAfterViewInit(): void {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.matSort;
+  
+      this.range.valueChanges.subscribe((value) => {
+        if (value.start !== null && value.end !== null) {
+          this.applyFilter(value.start?.toISOString()!, value.end?.toISOString()!);
+        }
+      });
+    }
+    private applyFilter(start: string, end: string) {
+      this.dataSource.filter = `${start},${end}`;
+    }
+
   ngOnInit(): void {
     this.orderService.getAllOrders().subscribe(orders=>{
       this.orderList=orders;
-      this.dataSource= new MatTableDataSource(orders)
+      this.dataSource.data = orders; 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.matSort;
     });
@@ -68,4 +101,6 @@ export class OrderTableComponent implements OnInit{
   onIdClick(id:string){
     this.router.navigate(['order/'+id])
   }
+
+  
 }
